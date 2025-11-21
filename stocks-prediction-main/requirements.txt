@@ -4,6 +4,7 @@ streamlit-option-menu
 # Data libraries
 pandas
 numpy
+matplotlib
 
 # Finance data
 yfinance
