@@ -1,0 +1,17 @@
+streamlit==1.45.0
+streamlit-option-menu==0.4.0
+
+# Data libraries
+pandas==2.2.3
+numpy>=1.26.0,<2.2.0
+matplotlib
+
+# Finance data
+yfinance==0.2.59
+
+# ML model
+tensorflow==2.19.0
+scikit-learn==1.6.1
+
+# Visualization
+plotly==6.0.1
