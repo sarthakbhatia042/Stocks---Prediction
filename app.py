@@ -62,6 +62,10 @@ if not st.session_state.run_pred:
 model = load_model()
 df    = fetch_data(ticker, start_date, end_date)
 
+if df.empty or len(df) < n_steps + 10:
+    st.error(f"Not enough data to run predictions! This may be due to Yahoo Finance rate limits or a short date range. Found {len(df)} rows after processing, but need at least {n_steps + 10}. Please select an earlier start date.")
+    st.stop()
+
 # Raw data display
 st.subheader("Historical Data (OHLCV)")
 st.dataframe(df.set_index("Date")[['Open','High','Low','Close','Volume']])

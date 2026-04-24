@@ -38,6 +38,8 @@ def load_model():
 @st.cache_data
 def fetch_data(ticker, start, end):
     df = yf.download(ticker, start=start, end=end)
+    if df.empty:
+        return df
     df.reset_index(inplace=True)
     # Flatten MultiIndex columns if present
     if isinstance(df.columns, pd.MultiIndex):
@@ -88,6 +90,10 @@ st.markdown("""
 # Load model & data
 model = load_model()
 df = fetch_data(ticker, start_date.isoformat(), end_date.isoformat())
+
+if df.empty or len(df) < n_steps + 10:
+    st.error(f"Not enough data for {ticker}. This may be due to Yahoo Finance rate limits or a short date range. Found {len(df)} rows, but need at least {n_steps + 10}. Please try an earlier start date or try again later.")
+    st.stop()
 
 # Shared split and scaling
 split_idx = int(len(df) * 0.8)
